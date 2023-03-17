@@ -1,0 +1,19 @@
+{
+  "name": "workflow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ping": "echo \"Ready to start a workflow (ง •̀_•́)ง\"",
+    "edit": "subl ./package.json",
+    "opendir": "code .",
+    "ls": "node ./lsCmd.js",
+    "new": "node createWf.js",
+    "add": "node addCmd.js",
+    "remove": "node removeWf.js",
+    "combine": "node combineWf.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
