@@ -119,7 +119,8 @@ async function removeScriptFn(...keys) {
 
 // TODO: FLAG READER
 function flagReader(args) {
-  console.log('map Flag')
+  console.log('read Flag')
+  // link to lsCmd names only!
 }
 
 module.exports={

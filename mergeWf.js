@@ -6,7 +6,7 @@ var { scripts } = require('./package.json');
   const args = process.argv.slice(2)
   
   if (!args.length) {
-    console.error('Nothing to combine -_-||')
+    console.error('Nothing to merge -_-||')
     return
   }
   
@@ -17,7 +17,7 @@ var { scripts } = require('./package.json');
     const d = new Date()
     const nameFlagIndex = args.indexOf('-n')
 
-    const combinedCmd = nameFlagIndex < 0 ?
+    const mergedCmd = nameFlagIndex < 0 ?
                         args.map(arg => scripts[arg])
                             .filter(Boolean)
                             .join('; ') : 
@@ -29,9 +29,9 @@ var { scripts } = require('./package.json');
     const invalidCmds = nameFlagIndex < 0 ?
                         args.filter(a => !scripts[a]) :
                         args.slice(0, nameFlagIndex).filter(a => !scripts[a])
-    if (invalidCmds.length && combinedCmd.length) {
+    if (invalidCmds.length && mergedCmd.length) {
       console.log(`Workflow ${red(underscore(invalidCmds.join(', ')))} do not exist! @_@`)
-      const isContinue = await prompt(`Wanna continue combine workflow: ${yellow(underscore(combinedCmd))}?\n('N' or 'n' to break, else continue)\n`) || 'y'
+      const isContinue = await prompt(`Wanna continue merge workflow: ${yellow(underscore(mergedCmd))}?\n('N' or 'n' to break, else continue)\n`) || 'y'
       if (isContinue === 'n' || isContinue === 'N') {
         break breakpoint;
       }
@@ -44,7 +44,7 @@ var { scripts } = require('./package.json');
       const inputKey = await prompt(`${yellow(underscore(name))} already exists. Overwrite?\n'Y' or 'y' to overwrite, else cancel\n`)
       forceFlag = inputKey === 'y' || inputKey === 'Y'
     }
-    insertScriptFn({key: name , value: combinedCmd , force: forceFlag})
+    insertScriptFn({key: name , value: mergedCmd , force: forceFlag})
   } catch (e) {
     console.error("Sth wrong:\n", e && e.message);
   } finally {
