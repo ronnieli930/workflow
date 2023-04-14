@@ -28,16 +28,17 @@ const counterPlusOne = async (propName) => {
     }
 
     // update, counter +1
+    const newValue = originalValue + 1
     const res = await updatePage({
       page_id: docId,
       properties: {
         [propName]: {
-          number: originalValue + 1
+          number: newValue
         }
       }
     })
     if (res?.id) {
-      Logging.success(`${propName} modified!`)
+      Logging.success(`${propName} modified from ${originalValue} to ${newValue}!`)
     } else {
       Logging.error(`Cannot modify ${propName}`)
     }

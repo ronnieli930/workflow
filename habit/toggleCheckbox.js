@@ -28,16 +28,17 @@ const toggleCheckbox = async (propName) => {
     }
 
     // update, counter +1
+    const newValue = !originalValue
     const res = await updatePage({
       page_id: docId,
       properties: {
         [propName]: {
-          checkbox: !originalValue
+          checkbox: newValue
         }
       }
     })
     if (res?.id) {
-      Logging.success(`${propName} modified!`)
+      Logging.success(`${propName} modified from ${originalValue} to ${newValue}!`)
     } else {
       Logging.error(`Cannot modify ${propName}`)
     }
