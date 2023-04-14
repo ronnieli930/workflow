@@ -125,11 +125,49 @@ function flagReader(args) {
   // link to lsCmd names only!
 }
 
+const Logging = {
+  error: (str) => {console.log(`${useCrayon().red(str)}`)},
+  success: (str) => {console.log(`${useCrayon().green(str)}`)},
+  warn: (str) => {console.log(`${useCrayon().yellow(str)}`)},
+  info: (str) => {console.log(str)},
+}
+
+function getCurrentDate(gap) {
+  // gap is the timezone difference.
+  const now = new Date();
+  const fiveHoursInMilliseconds = gap * 60 * 60 * 1000;
+  const timeMinusFiveHours = new Date(now.getTime() + fiveHoursInMilliseconds);
+  return timeMinusFiveHours;
+}
+
+
+function getCurrentDateWithTimezone(createTime="07:00:00") {
+  const now = getCurrentDate(+5);
+  /**
+   * Any entry before 3:00 a.m. HKT,
+   * will be consider within the same day,
+   * instead of count as a new day.
+   */
+  const timezoneOffsetMinutes = now.getTimezoneOffset();
+  const timezoneOffsetSign = timezoneOffsetMinutes > 0 ? '-' : '+';
+  const timezoneOffsetHours = Math.abs(Math.floor(timezoneOffsetMinutes / 60));
+  const timezoneOffsetMinutesRemainder = Math.abs(timezoneOffsetMinutes % 60);
+
+  const timezoneOffsetString = `${timezoneOffsetSign}${String(timezoneOffsetHours).padStart(2, '0')}:${String(timezoneOffsetMinutesRemainder).padStart(2, '0')}`;
+
+  const isoStringPartial = now.toISOString()?.slice(0,11);
+
+  return `${isoStringPartial}${createTime}${timezoneOffsetString}`;
+}
+
+
 export {
   insertScriptFn,
   removeScriptFn,
   useCrayon,
   require,
+  Logging,
+  getCurrentDateWithTimezone,
 }
 
 // insertScriptFn({key:'xxx', value:'abc'})
