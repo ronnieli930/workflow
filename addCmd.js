@@ -1,5 +1,5 @@
-const {insertScriptFn} = require('./helpers.js');
-const {scripts} = require('./package.json');
+import {insertScriptFn, require} from './helpers.js';
+const { scripts } = require('./package.json');
 
 (() => {
   if (process.argv.length < 4) {
@@ -7,8 +7,8 @@ const {scripts} = require('./package.json');
     return
   }
 
-  const [k,v, _] = process.argv.slice(2)
-  const newCmd = [scripts[k], v].filter(Boolean).join('; ')
+  const [k,...v] = process.argv.slice(2)
+  const newCmd = [scripts[k], ...v].filter(Boolean).join('; ')
 
   insertScriptFn({key: k , value: newCmd , force: true})
 })();

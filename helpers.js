@@ -1,5 +1,7 @@
-const fs = require('fs');
-const readline = require('readline');
+import fs from 'fs';
+import readline from 'readline';
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 const obj = require('./package.json')
 
 // Color printing
@@ -123,10 +125,11 @@ function flagReader(args) {
   // link to lsCmd names only!
 }
 
-module.exports={
+export {
   insertScriptFn,
   removeScriptFn,
   useCrayon,
+  require,
 }
 
 // insertScriptFn({key:'xxx', value:'abc'})

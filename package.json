@@ -2,6 +2,7 @@
   "name": "workflow",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "ping": "echo \"Ready to start a workflow (ง •̀_•́)ง\"",
@@ -12,6 +13,7 @@
     "new": "node createWf.js",
     "add": "node addCmd.js",
     "remove": "node removeWf.js",
+    "rm": "node removeWf.js",
     "del": "node removeWf.js",
     "delete": "node removeWf.js",
     "merge": "node mergeWf.js",

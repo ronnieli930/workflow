@@ -1,20 +1,17 @@
-const { useCrayon } = require('./helpers');
-const {scripts} = require('./package.json');
+import { useCrayon, require } from './helpers.js';
+const { scripts } = require('./package.json');
 
 (() => {
-  const {red, green, yellow, underscore} = useCrayon()
-  if (process.argv.length === 2) {
-    console.log(scripts)
-    return
-  }
+  const {red, cyan, yellow, underscore} = useCrayon()
+  const args = process.argv
   // TODO
   // -n names only, don't show detail cmds
-  const keys = process.argv.slice(2)
+  const keys = args.length > 2 ? process.argv.slice(2) : Object.keys(scripts)
   keys.forEach(k => {
     if (!scripts[k]) {
       console.log(`${red(k)} does not exist =_=||`)
       return
     }
-    console.log(`${yellow(k)}: ${underscore(green(scripts[k]))}`)
+    console.log(`${cyan(k)}: ${underscore(yellow(scripts[k]))}`)
   })
 })();

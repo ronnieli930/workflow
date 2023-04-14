@@ -1,4 +1,4 @@
-const {insertScriptFn} = require('./helpers.js');
+import { insertScriptFn } from './helpers.js';
 
 (() => {
   if (process.argv.length < 4 || process.argv.length > 5) {

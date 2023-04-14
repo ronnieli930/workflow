@@ -1,6 +1,6 @@
-const readline = require('readline');
-var { insertScriptFn, useCrayon } = require('./helpers.js');
-var { scripts } = require('./package.json');
+import readline from 'readline';
+import { insertScriptFn, useCrayon, require } from './helpers.js';
+const { scripts } = require('./package.json');
 
 (async() => {
   const args = process.argv.slice(2)

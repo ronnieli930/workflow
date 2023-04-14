@@ -1,4 +1,4 @@
-var { removeScriptFn } = require('./helpers.js');
+import { removeScriptFn } from './helpers.js';
 
 const RESERVED_CMD = [
   "ping",
