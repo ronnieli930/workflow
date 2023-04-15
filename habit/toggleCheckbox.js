@@ -1,7 +1,7 @@
 import { Logging, getCurrentDateWithTimezone } from '../helpers.js';
 import { getPageById, queryPageFromDB, updatePage } from './notionHelper.js';
 
-const toggleCheckbox = async (propName) => {
+const toggleCheckbox = async (propName, value) => {
   try {
     // get today's document
     const { results } = await queryPageFromDB({
@@ -27,8 +27,8 @@ const toggleCheckbox = async (propName) => {
       throw new Error(`Get ${propName} Attribute incorrect. Either it does not exist or its' not a number type.`)
     }
 
-    // update, counter +1
-    const newValue = !originalValue
+    // update set toggle to desired value or toggle it
+    const newValue = typeof value === 'boolean' ? value : !originalValue
     const res = await updatePage({
       page_id: docId,
       properties: {

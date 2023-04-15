@@ -1,9 +1,13 @@
 import { Logging, getCurrentDateWithTimezone } from '../helpers.js';
 import { getPageById, queryPageFromDB, updatePage } from './notionHelper.js';
 
-const counterPlusOne = async (propName) => {
+const numberAddValue = async (propName, value) => {
   try {
     // get today's document
+    if (typeof value !== 'number') {
+      throw new Error(`Invalid value ${value} for property ${propName}`);
+    }
+
     const { results } = await queryPageFromDB({
       database_id: process.env.NOTION_HABIT_DB_ID,
       filter: {
@@ -28,7 +32,7 @@ const counterPlusOne = async (propName) => {
     }
 
     // update, counter +1
-    const newValue = originalValue + 1
+    const newValue = originalValue + value
     const res = await updatePage({
       page_id: docId,
       properties: {
@@ -47,7 +51,7 @@ const counterPlusOne = async (propName) => {
       // slow down the request.
       Logging.warn(`${getDocErr.code}, Retry in 3s...`)
       setTimeout(() => {
-        counterPlusOne(propName)
+        numberAddValue(propName)
       }, 3000);
       return;
     }
@@ -56,4 +60,4 @@ const counterPlusOne = async (propName) => {
   }
 };
 
-export default counterPlusOne;
+export default numberAddValue;
