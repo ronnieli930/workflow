@@ -51,11 +51,15 @@ export const addTodo = async (...args) => {
         {
           to_do: {
             rich_text: [
-              { text: { content: `${targetColor} ${content}` || "" }},
-              { mention: { date: {
-                    start: getNowISOString(),
-                    time_zone: "Asia/Hong_Kong"
-              }}}
+              {
+                text: {
+                  content: `${targetColor} ${content}` || "" 
+                }
+              },
+              // { mention: { date: {
+              //       start: getNowISOString(),
+              //       time_zone: "Asia/Hong_Kong"
+              // }}} TODO:  Reserved for Adding Time Entry !!
             ]
           }
         }
