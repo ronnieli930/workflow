@@ -1,12 +1,9 @@
 import { Logging, getCurrentDateWithTimezone } from '../helpers.js';
-import { getPageById, queryPageFromDB, updatePage } from './notionHelper.js';
+import { getPageById, queryPageFromDB, updatePage } from '../notion/index.js';
 
 const numberAddValue = async (propName, value) => {
   try {
     // get today's document
-    if (typeof value !== 'number') {
-      throw new Error(`Invalid value ${value} for property ${propName}`);
-    }
 
     const { results } = await queryPageFromDB({
       database_id: process.env.NOTION_HABIT_DB_ID,
@@ -32,7 +29,10 @@ const numberAddValue = async (propName, value) => {
     }
 
     // update, counter +1
-    const newValue = originalValue + value
+    const newValue = typeof value === 'number' ?  originalValue + value : originalValue + 1
+    if (typeof value !== 'number') {
+      Logging.warn('Default: counter add one')
+    }
     const res = await updatePage({
       page_id: docId,
       properties: {

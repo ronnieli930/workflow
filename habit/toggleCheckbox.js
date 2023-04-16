@@ -1,5 +1,5 @@
 import { Logging, getCurrentDateWithTimezone } from '../helpers.js';
-import { getPageById, queryPageFromDB, updatePage } from './notionHelper.js';
+import { getPageById, queryPageFromDB, updatePage } from '../notion/index.js';
 
 const toggleCheckbox = async (propName, value) => {
   try {
@@ -29,6 +29,9 @@ const toggleCheckbox = async (propName, value) => {
 
     // update set toggle to desired value or toggle it
     const newValue = typeof value === 'boolean' ? value : !originalValue
+    if (typeof value !== 'boolean') {
+      Logging.warn('Default: toggle checkbox')
+    }
     const res = await updatePage({
       page_id: docId,
       properties: {

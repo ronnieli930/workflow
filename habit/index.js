@@ -17,6 +17,7 @@ import { attributeMap, getHabitFn, parseArg } from './helper.js';
   const fn = getHabitFn(scriptName);
   if (!fn) {
     Logging.error('Habit name does not exist!')
+    process.exit(0)
   }
 
   const attr = attributeMap[scriptName]

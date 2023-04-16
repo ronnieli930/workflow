@@ -17,7 +17,8 @@
     "del": "node removeWf.js",
     "delete": "node removeWf.js",
     "merge": "node mergeWf.js",
-    "_habit": "node ./habit"
+    "_habit": "node ./habit",
+    "_agenda": "node ./agenda"
   },
   "keywords": [],
   "author": "",

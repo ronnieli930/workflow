@@ -10,10 +10,14 @@ const notion = new Client({
 const queryPageFromDB = notion.databases.query;
 const getPageById = notion.pages.retrieve;
 const updatePage = notion.pages.update;
+const appendBlk = notion.blocks.children.append;
+const updateBlk = notion.blocks.update;
 
 export {
   notion,
   queryPageFromDB,
   getPageById,
   updatePage,
+  appendBlk,
+  updateBlk,
 }
