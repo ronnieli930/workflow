@@ -66,7 +66,7 @@ export const addTodo = async (...args) => {
       ]
     })
     if (res?.results?.length) {
-      Logging.success(`Succesfully added:\n${targetColor} ${content},`)
+      Logging.success(`Succesfully added:\n${targetColor} ${content}.`)
     }
   } catch (error) {
     Logging.error("Adding failed: ", error);
