@@ -1,24 +1,19 @@
+import { cmds } from "./helper.js";
 import { Logging } from "../helpers.js";
-import { updateDate } from "./updateDate.js";
-import { addTodo } from "./addTodo.js";
-
-const getAgendaFn = (cmd, ...args) => {
-  if (cmd === 'update') {
-    return updateDate
-  }
-  if (cmd === 'todo') {
-    return () => addTodo(...args)
-  }
-}
 
 (() => {
   if (process.argv.length <= 2) {
-    Logging.error('Wrong Args Number -_-||')
-    return
+    Logging.error("Empty command!\nPlease choose the following commands instead:")
+    Logging.warn(getCmdListStr())
+    process.exit(0)
   }
   const args = process.argv.slice(2)
   const scriptName = args[0];
   const restArgs = args.slice(1);
-  getAgendaFn(scriptName, ...restArgs)();
+  if (!cmds[scriptName]) {
+    Logging.error("Command not found!\nPlease choose the following commands instead:")
+    Logging.warn(getCmdListStr())
+    process.exit(0)
+  }
+  cmds[scriptName](...restArgs);
 })();
-  

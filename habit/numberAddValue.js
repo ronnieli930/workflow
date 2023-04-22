@@ -57,6 +57,7 @@ const numberAddValue = async (propName, value) => {
     }
     Logging.error(getDocErr)
     Logging.error("Get Today's habit error! Please mannualy create the document")
+    process.exit(0);
   }
 };
 

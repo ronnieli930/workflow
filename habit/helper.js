@@ -51,11 +51,11 @@ const attributeMap = {
   'cs': 'Cold shower',
   'skinCare': 'Skin care',
   'sc': 'Skin care',
-  'touchFace': 'Touch face',
-  'tf': 'Touch face',
-  'nut': 'Nut',
-  'sugar': 'Sugar',
-  'su': 'Sugar',
+  'touchFace': 'touch-face-counter',
+  'tf': 'touch-face-counter',
+  'nut': 'nut-counter',
+  'sugar': 'sugar-counter',
+  'su': 'sugar-counter',
 };
 
 export {

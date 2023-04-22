@@ -10,9 +10,6 @@ import { attributeMap, getHabitFn, parseArg } from './helper.js';
   }
   const scriptName = args[2];
   const value = parseArg(args?.[3]);
-  if (scriptName === '__aliases') {
-    Logging.error('Wtf man???')
-  }
 
   const fn = getHabitFn(scriptName);
   if (!fn) {

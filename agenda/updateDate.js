@@ -24,10 +24,12 @@ const getCurrentWeekStr = () => {
   return res;
 }
 
+const PROGRESS_BAR_LENGTH = 12;
+
 export const drawProgressBar = (percentage) => {
   const {cyan} = useCrayon();
-  const drawBar = () => `${'='.repeat(Math.round(percentage*10))}>${' '.repeat(10-Math.round(percentage*10))}`
-  process.stdout.write(`Progress: ${cyan(`[${drawBar()}]`)}  ${(percentage*100).toFixed(2)}%\r`);
+  const drawBar = () => `${'🟦'.repeat(Math.round(percentage*PROGRESS_BAR_LENGTH))}${'⬜'.repeat(Math.round((1-percentage)*PROGRESS_BAR_LENGTH))}`
+  process.stdout.write(`Progress: ${cyan(`[${drawBar()}]`)} ${(percentage*100).toFixed(2)}%\r`);
 }
 
 export const updateDate = async () => {
@@ -59,13 +61,14 @@ export const updateDate = async () => {
       ]
     }
   }))
-  let counter = 1
+  let counter = 0;
+  drawProgressBar(counter/7);
   for (const req of requests) {
     try {
       const res = await req()
       if (res?.id) {
-        drawProgressBar(counter/7);
         counter += 1;
+        drawProgressBar(counter/7);
       }
     } catch (err) {
       Logging.error(`\nupdate error: ${err}`)
