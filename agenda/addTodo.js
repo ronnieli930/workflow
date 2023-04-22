@@ -25,6 +25,7 @@ const todoColorType = {
   '-g': "🟩",
   '-b': "🟦",
   '-p': "🟪",
+  '-w': "⬜",
 }
 
 export const addTodo = async (...args) => {
