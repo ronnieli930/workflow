@@ -1,6 +1,7 @@
 import fs from 'fs';
 import readline from 'readline';
 import { createRequire } from "module";
+import * as readlinePromises from 'readline/promises'
 const require = createRequire(import.meta.url);
 const obj = require('./package.json')
 
@@ -160,6 +161,27 @@ function getCurrentDateWithTimezone(createTime="07:00:00") {
   return `${isoStringPartial}${createTime}${timezoneOffsetString}`;
 }
 
+const getInputMultilines = async(prompt="User input:") => {
+  const { cyan } = useCrayon()
+  const rl = readlinePromises.createInterface({input: process.stdin, output: process.stdout})
+  const linesArr = [];
+  let temp = await rl.question(cyan(`${prompt}\n`));
+  do {
+    if (!temp) {
+      break;
+    }
+    linesArr.push(temp);
+    temp = await rl.question('');
+  } while (temp);
+  rl.close();
+  const res = linesArr.join('\n')
+
+  if (!res) {
+    Logging.error("Nothing to add, bye.")
+    process.exit(0)
+  }
+  return res;
+}
 
 export {
   insertScriptFn,
@@ -168,6 +190,7 @@ export {
   require,
   Logging,
   getCurrentDateWithTimezone,
+  getInputMultilines,
 }
 
 // insertScriptFn({key:'xxx', value:'abc'})

@@ -1,5 +1,6 @@
 import { updateDate } from "./updateDate.js";
 import { addTodo } from "./addTodo.js";
+import { addLog } from "./addLog.js";
 
 const cmdObj = {
   update:{
@@ -12,7 +13,7 @@ const cmdObj = {
   },
   entryLog:{
     cmds: ['log', 'lg', 'lo'],
-    fn: () => console.log('loggggg and time entry')
+    fn: addLog
   },
 }
 
