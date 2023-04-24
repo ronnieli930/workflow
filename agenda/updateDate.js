@@ -38,7 +38,7 @@ export const updateDate = async () => {
 
   const requests = Object.keys(blkIdMap).map(day => async () => updateBlk({
     block_id: blkIdMap[day]?.id,
-    paragraph: {
+    toggle: {
       rich_text: [
         {
           type: 'text',

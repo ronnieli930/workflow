@@ -1,5 +1,4 @@
-import * as readline from 'readline/promises'
-import { Logging, useCrayon } from "../helpers.js";
+import { Logging, getInputMultilines } from "../helpers.js";
 import { appendBlk } from "../notion/index.js";
 
 export const getNowISOString = () => {
@@ -33,10 +32,8 @@ export const addTodo = async (...args) => {
   const color = args.find(e => e.includes('-'))
   const targetDay = day || new Date().toString().slice(0, 3).toLowerCase();
   const formattedDay = `${targetDay.charAt(0).toUpperCase()}${targetDay.slice(1).toLowerCase()}`;
-  const rl = readline.createInterface({input: process.stdin, output: process.stdout})
-  const { cyan } = useCrayon();
 
-  const content = await rl.question(cyan("What are you going to do?\n"))
+  const content = await getInputMultilines("What are you going to do?");
   if (!content) {
     Logging.error("Nothing to add, bye.")
     process.exit(0)
@@ -67,12 +64,11 @@ export const addTodo = async (...args) => {
       ]
     })
     if (res?.results?.length) {
-      Logging.success(`Succesfully added:\n${targetColor} ${content}.`)
+      Logging.success(`Succesfully added:\n${targetColor} ${content}`)
     }
   } catch (error) {
     Logging.error("Adding failed: ", error);
   } finally {
-    rl.close()
     process.exit(0)
   }
 }

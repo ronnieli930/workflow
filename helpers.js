@@ -165,13 +165,13 @@ const getInputMultilines = async(prompt="User input:") => {
   const { cyan } = useCrayon()
   const rl = readlinePromises.createInterface({input: process.stdin, output: process.stdout})
   const linesArr = [];
-  let temp = await rl.question(cyan(`${prompt}\n`));
+  let temp = await rl.question(cyan(`${prompt}\n`) + "> ");
   do {
     if (!temp) {
       break;
     }
     linesArr.push(temp);
-    temp = await rl.question('');
+    temp = await rl.question('> ');
   } while (temp);
   rl.close();
   const res = linesArr.join('\n')

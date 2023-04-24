@@ -49,7 +49,7 @@ export const addLog = async (...args) => {
       ]
     })
     if (res?.results?.length) {
-      Logging.success(`Succesfully inserted:\n${content} @${nowStr}.`)
+      Logging.success(`Succesfully inserted:\n${content} @${nowStr}`)
     }
   } catch (error) {
     Logging.error("Adding failed: ", error);
