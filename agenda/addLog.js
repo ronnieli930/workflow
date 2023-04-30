@@ -1,11 +1,6 @@
 import { Logging, getInputMultilines } from "../helpers.js";
 import { appendBlk } from "../notion/index.js";
-
-export const getNowISOString = () => {
-  const now = new Date()
-  const hourThatIWant = now.getHours().toString().padStart(2, '0')
-  return now.toISOString().substring(0,11) + hourThatIWant + now.toISOString().substring(13,16)
-}
+import { getNowStr } from "./helper.js";
 
 const idMap = {
   sun: process.env.NOTION_AGENDA_SUN_BLK_ID,
@@ -26,7 +21,7 @@ export const addLog = async (...args) => {
 
   Logging.warn(`Adding => ${formattedDay}...`);
   const blkId = idMap[today];
-  const nowStr = getNowISOString();
+  const nowStr = getNowStr();
   try {
     const res = await appendBlk({
       block_id: blkId,

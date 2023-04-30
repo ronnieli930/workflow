@@ -1,12 +1,6 @@
 import { Logging, getInputMultilines } from "../helpers.js";
 import { appendBlk } from "../notion/index.js";
 
-export const getNowISOString = () => {
-  const now = new Date()
-  const hourThatIWant = now.getHours().toString().padStart(2, '0')
-  return now.toISOString().substring(0,11) + hourThatIWant + now.toISOString().substring(13,16)
-}
-
 const idMap = {
   sun: process.env.NOTION_AGENDA_SUN_BLK_ID,
   mon: process.env.NOTION_AGENDA_MON_BLK_ID,
@@ -54,10 +48,6 @@ export const addTodo = async (...args) => {
                   content: `${targetColor} ${content}` || "" 
                 }
               },
-              // { mention: { date: {
-              //       start: getNowISOString(),
-              //       time_zone: "Asia/Hong_Kong"
-              // }}} TODO:  Reserved for Adding Time Entry !!
             ]
           }
         }
