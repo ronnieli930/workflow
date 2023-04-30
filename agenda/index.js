@@ -1,4 +1,4 @@
-import { cmds } from "./helper.js";
+import { cmds, getCmdListStr } from "./helper.js";
 import { Logging } from "../helpers.js";
 
 (() => {
