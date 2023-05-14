@@ -1,5 +1,5 @@
 import { Logging, getInputMultilines } from "../helpers.js";
-import { appendBlk } from "../notion/index.js";
+import { appendBlk, retrieveBlkChildren } from "../notion/index.js";
 
 const idMap = {
   sun: process.env.NOTION_AGENDA_SUN_BLK_ID,
@@ -34,9 +34,19 @@ export const addTodo = async (...args) => {
   }
 
   Logging.warn(`Adding => ${formattedDay}...`);
-  const blkId = idMap[targetDay];
+  const dayBlkId = idMap[targetDay];
   const targetColor = todoColorType[color] || todoColorType['-b']
   try {
+    // retrieve id
+    const { results: blkChildren } = await retrieveBlkChildren({
+      block_id: dayBlkId,
+    });
+    const todoBlk = blkChildren.find(blk => blk.toggle?.rich_text?.[0]?.plain_text === 'TODO' )
+    if (!todoBlk) {
+      throw new Error("Cannot find TODO Block!")
+    }
+    const { id: blkId } = todoBlk;
+    
     const res = await appendBlk({
       block_id: blkId,
       children: [
@@ -53,11 +63,13 @@ export const addTodo = async (...args) => {
         }
       ]
     })
+
     if (res?.results?.length) {
       Logging.success(`Succesfully added:\n${targetColor} ${content}`)
     }
   } catch (error) {
-    Logging.error("Adding failed: ", error);
+    Logging.error("Adding failed: ");
+    console.error(error)
   } finally {
     process.exit(0)
   }

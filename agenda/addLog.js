@@ -1,5 +1,5 @@
 import { Logging, getInputMultilines } from "../helpers.js";
-import { appendBlk } from "../notion/index.js";
+import { appendBlk, retrieveBlkChildren } from "../notion/index.js";
 import { getNowStr } from "./helper.js";
 
 const idMap = {
@@ -20,9 +20,21 @@ export const addLog = async (...args) => {
   const content = await getInputMultilines("What have you accomplished?");
 
   Logging.warn(`Adding => ${formattedDay}...`);
-  const blkId = idMap[today];
-  const nowStr = getNowStr();
+  const dayBlkId = idMap[today];
+
   try {
+    // retrieve id
+    const { results: blkChildren } = await retrieveBlkChildren({
+      block_id: dayBlkId,
+    });
+    const logBlk = blkChildren.find(blk => blk.toggle?.rich_text?.[0]?.plain_text === 'LOG' )
+    if (!logBlk) {
+      throw new Error("Cannot find LOG Block!")
+    }
+    
+    const { id: blkId } = logBlk;
+    const nowStr = getNowStr();
+
     const res = await appendBlk({
       block_id: blkId,
       children: [
@@ -47,7 +59,8 @@ export const addLog = async (...args) => {
       Logging.success(`Succesfully inserted:\n${content} @${nowStr}`)
     }
   } catch (error) {
-    Logging.error("Adding failed: ", error);
+    Logging.error("Adding failed: ");
+    console.error(error)
   } finally {
     process.exit(0)
   }

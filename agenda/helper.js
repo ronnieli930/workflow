@@ -1,20 +1,25 @@
 import { updateDate } from "./updateDate.js";
 import { addTodo } from "./addTodo.js";
 import { addLog } from "./addLog.js";
+import { resetAg } from "./reset.js";
 
 const cmdObj = {
   update:{
     cmds: ['update', 'up'],
-    fn: updateDate
+    fn: updateDate,
   },
   todo:{
     cmds: ['todo', 'td'],
-    fn: addTodo
+    fn: addTodo,
   },
   entryLog:{
     cmds: ['log', 'lg', 'lo'],
-    fn: addLog
+    fn: addLog,
   },
+  reset: {
+    cmds: ['reset'],
+    fn: resetAg,
+  }
 }
 
 const getCmdListStr = () => Object.values(cmdObj).map(e => e.cmds.join(', ')).join('\n')

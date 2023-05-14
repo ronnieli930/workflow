@@ -11,6 +11,8 @@ const queryPageFromDB = notion.databases.query;
 const getPageById = notion.pages.retrieve;
 const updatePage = notion.pages.update;
 const appendBlk = notion.blocks.children.append;
+const retrieveBlkChildren = notion.blocks.children.list;
+const deleteBlk = notion.blocks.delete;
 const updateBlk = notion.blocks.update;
 
 export {
@@ -20,4 +22,6 @@ export {
   updatePage,
   appendBlk,
   updateBlk,
+  retrieveBlkChildren,
+  deleteBlk,
 }
