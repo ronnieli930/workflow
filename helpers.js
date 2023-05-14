@@ -177,7 +177,19 @@ const getInputMultilines = async(prompt="User input:") => {
   const res = linesArr.join('\n')
 
   if (!res) {
-    Logging.error("Nothing to add, bye.")
+    Logging.error("Nothing typed, bye.")
+    process.exit(0)
+  }
+  return res;
+}
+
+const getInputSingleline = async(prompt="User input:") => {
+  const { cyan } = useCrayon()
+  const rl = readlinePromises.createInterface({input: process.stdin, output: process.stdout})
+  const res = await rl.question(cyan(`${prompt}\n`) + "> ");
+  rl.close();
+  if (!res) {
+    Logging.error("Nothing typed, bye.")
     process.exit(0)
   }
   return res;
@@ -191,6 +203,7 @@ export {
   Logging,
   getCurrentDateWithTimezone,
   getInputMultilines,
+  getInputSingleline,
 }
 
 // insertScriptFn({key:'xxx', value:'abc'})
