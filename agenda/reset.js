@@ -25,7 +25,7 @@ const todoColorType = {
 export const resetAg = async (...args) => {
   const content = await getInputSingleline("Back up yet? (type 'yes' if you did)");
   if (content.toLowerCase() !== 'yes') {
-    Logging.error("Go back up then reset.")
+    Logging.error("Go BACKUP first then reset.")
     process.exit(0)
   }
 
