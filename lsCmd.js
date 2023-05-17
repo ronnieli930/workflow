@@ -15,8 +15,8 @@ const { scripts } = require('./package.json');
   keys.forEach(k => {
     if (!scripts[k]) {
       console.log(`${red(k)} does not exist =_=||`)
-      return
+      process.exit(0)
     }
-    console.log(`${cyan(k)}: ${underscore(yellow(scripts[k]))}`)
+    console.log(`${cyan(k)}:\t${underscore(yellow(scripts[k].replace('; ', ';\n\t')))}`)
   })
 })();
