@@ -102,19 +102,21 @@ export const resetAg = async (...args) => {
         block_id: blkId,
       });
 
-      if (blkChildren.length === 2) {
-        const retrieveReqs = blkChildren.map(
-          (child) => async () => retrieveBlkChildren({ block_id: child.id })
-        );
-        const [todoRes, logRes] = await Promise.all(
-          retrieveReqs.map((fn) => fn())
-        );
-        await deleteChildrenBlocks([...todoRes.results, ...logRes.results]);
-      } else {
-        // delete and create whole blocks
-        await deleteChildrenBlocks(blkChildren);
-        await createBlockTemplate(blkId);
-      }
+      /* if (blkChildren.length === 2) {
+      //   const retrieveReqs = blkChildren.map(
+      //     (child) => async () => retrieveBlkChildren({ block_id: child.id })
+      //   );
+      //   const [todoRes, logRes] = await Promise.all(
+      //     retrieveReqs.map((fn) => fn())
+      //   );
+      //   await deleteChildrenBlocks([...todoRes.results, ...logRes.results]);
+      // } else { } // same as below
+      */
+
+      // delete and create whole blocks
+      await deleteChildrenBlocks(blkChildren);
+      await createBlockTemplate(blkId);
+      // }
 
       // update counter
       counter += 1;
