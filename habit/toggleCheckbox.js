@@ -7,7 +7,7 @@ const toggleCheckbox = async (propName, value) => {
     const { results } = await queryPageFromDB({
       database_id: process.env.NOTION_HABIT_DB_ID,
       filter: {
-        "property": "Created time",
+        "property": "Created at",
         "date": {
           "on_or_after": `${getCurrentDateWithTimezone()}`
         }

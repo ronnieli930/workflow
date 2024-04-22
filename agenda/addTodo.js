@@ -27,7 +27,7 @@ export const addTodo = async (...args) => {
   const targetDay = day || new Date().toString().slice(0, 3).toLowerCase();
   const formattedDay = `${targetDay.charAt(0).toUpperCase()}${targetDay.slice(1).toLowerCase()}`;
 
-  const content = await getInputMultilines("What are you going to do?");
+  const content = args?.[1] ?? await getInputMultilines("What are you going to do?");
   if (!content) {
     Logging.error("Nothing to add, bye.")
     process.exit(0)
